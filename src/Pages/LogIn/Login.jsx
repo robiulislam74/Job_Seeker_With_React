@@ -1,12 +1,14 @@
 import Lottie from 'lottie-react'
 import singIn_Lotte from '../../assets/lotteFiles/signIn_lotte.json'
 import UseContext from '../../Context/CustomHook/UseContext'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import GoogleLogin from '../../SharedFiles/GoogleLogin'
 
 const Login = () => {
     const { signInUser} = UseContext()
     const navigate = useNavigate()
+    const location = useLocation()
+   const form = location.state || "/"
 
     const handleSignIn = (e) =>{
         e.preventDefault()
@@ -15,7 +17,7 @@ const Login = () => {
 
         signInUser(registerData.email,registerData.password)
         .then(credential=>{
-            navigate('/')
+            navigate(form)
             console.log(credential.user)
         })
         .catch((error)=>{

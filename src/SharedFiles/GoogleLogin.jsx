@@ -2,17 +2,18 @@ import { div } from 'motion/react-client';
 import React from 'react'
 import { FcGoogle } from "react-icons/fc";
 import UseContext from '../Context/CustomHook/UseContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const GoogleLogin = () => {
     const {handleGoogleLogin}=UseContext()
     const navigate = useNavigate()
+    const location = useLocation()
+   const form = location.state || "/"
 
     const handleGoogleBtn =()=>{
         handleGoogleLogin()
         .then(result=>{
-            navigate('/')
-            console.log("Google Login Successful:",result.user)
+            navigate(form)
         }).catch((error)=>{
             console.log("Error:",error.message)
         })
